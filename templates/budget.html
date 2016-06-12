@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>爱记账-预算计划</title>
+		<link href="css/ajz.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body id="warp">
+		<div class="hd">
+			<div class="header clearfix">
+
+				<div class="top">
+					<h1 class="logo"><a href="/user/index" hidefocus="ture"></a></h1>
+					<ul class="nav">
+						<li><a href="tally.html" hidefocus="ture">首页</a></li>
+						<li><a href="daily.html" hidefocus="ture">报表</a></li>
+						<li class="cur"><a href="budget.html" hidefocus="ture">预算</a></li>
+						<!--<li ><a href="/user/financing" hidefocus="ture">理财</a></li>-->
+						<!--<li ><a href="/user/profile" hidefocus="ture">设置</a></li>-->
+						<!--<li ><a href="javascript:alert('敬请期待！');" hidefocus="ture">手机版</a></li>-->
+					</ul>
+					<div class="top_quit_box " onmouseover="$(this).find('.top_quit').show()" onmouseout="$(this).find('.top_quit').hide()">
+						<a class="h_btn" hidefocus="ture" href="javascript:;"></a>
+						<div class="top_quit" style="display:none"> <a href="#none" onclick="changeTallytype(1);">传统模式</a> <a href="/user/logout">退出</a> </div>
+					</div>
+					<!--<div class="avatar">
+						<span class="avatar_img"><a href="/user/profile" hidefocus="ture"><img src="http://qzapp.qlogo.cn/qzapp/100254874/A2C3638D68D11AB51024BA5DFAA84906/100" /></a></span>
+						<span class="fl">
+                        <p class="f14"><a href="/user/profile" hidefocus="ture">倩~</a></p>
+                        <p>账龄：1天</p>
+                    </span>
+					</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="main clearfix">
+			<div class="sideleft">
+				<div class="box clearfix">
+					<div class="title budget">
+						<h3>我的预算</h3>
+						<div class="month">
+							<ul>
+								<li>
+									<a href="#nogo" hidefocus="ture" class="prev_month"></a>
+								</li>
+								<li class="month_list">
+									<div class="rcm-box" style=" position:relative;width:250px;overflow:hidden;height:31px; z-index:2">
+										<div style=" position:absolute; z-index:1;width:666px;left: -50px" id="rcm-m">
+											<a sid='1'>1月</a><a sid='2'>2月</a><a sid='3'>3月</a><a sid='4' class='on'>4月</a><a sid='5'>5月</a><a sid='6'>6月</a><a sid='7'>7月</a><a sid='8'>8月</a><a sid='9'>9月</a><a sid='10'>10月</a><a sid='11'>11月</a><a sid='12'>12月</a> </div>
+									</div>
+								</li>
+								<li>
+									<a href="#nogo" hidefocus="ture" class="next_month"></a>
+								</li>
+							</ul>
+						</div>
+						<div class="year">
+							<input type="text" class="year_text" value="2016" name="tally_yeah" />
+							<a href="#nogo" class="prev_year" id="rcy-up"></a>
+							<a href="#nogo" class="next_year" id="rcy-down"></a>
+						</div>
+					</div>
+					<div id="budget_list">
+						<div class="budget_title">
+							<ul>
+								<li class="l1">类别</li>
+								<li class="l2">上月预算</li>
+								<li class="l3">上月实际</li>
+								<li class="l4">本月实际</li>
+							</ul>
+							<div class="budget_y">
+								<span>预算收支<s></s></span>
+								<div class="op_list">
+									<a href="javascript:copyprev();">复制上月</a>
+									<a href="javascript:clearmonth();">清空预算</a>
+								</div>
+							</div>
+						</div>
+						<div class="budget_list clearfix">
+							<ul>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">基本生活</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][1]" sid="1" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">餐饮饮食</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][8]" sid="8" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">水果零食</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][9]" sid="9" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">日常用品</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][10]" sid="10" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">柴米油盐</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][11]" sid="11" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">物业水电</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][12]" sid="12" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">医药保健</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][13]" sid="13" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">交通通讯</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][2]" sid="2" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">交通费</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][14]" sid="14" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">话费网费</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][15]" sid="15" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">养车费</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][16]" sid="16" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">文化娱乐</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][3]" sid="3" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">旅游娱乐</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][17]" sid="17" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">博彩彩票</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][18]" sid="18" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">书报音像</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][19]" sid="19" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">数码产品</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][20]" sid="20" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">教育培训</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][21]" sid="21" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">美容妆扮</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][4]" sid="4" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">服饰装扮</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][22]" sid="22" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">化妆品美容</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][23]" sid="23" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">人情往来</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][5]" sid="5" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">人际往来</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][24]" sid="24" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">礼品礼金</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][25]" sid="25" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">孝敬长辈</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][26]" sid="26" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">其他支出</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[out][6]" sid="6" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">房产车产</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][27]" sid="27" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">投资亏损</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][28]" sid="28" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">电器家居</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][29]" sid="29" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">其他杂项</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[out][30]" sid="30" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+								<li>
+									<div class="expand">
+										<span class="add"></span>
+										<span class="ys_type">收入</span>
+										<span class="ys_lastb">￥0</span>
+										<span class="ys_lastm">￥0</span>
+										<span class="ys_thism ">￥0</span>
+										<span class="ys_nextm">
+                                                                                        <input type="text" class="ys_text father_budget" name="money[in][7]" sid="7" value="0">
+                                                    </span>
+									</div>
+									<ul style="display: none;">
+										<div>
+											<li>
+												<span class="ys_type">工资</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][31]" sid="31" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">奖金</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][32]" sid="32" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">补助津贴</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][33]" sid="33" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">公务报销</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][34]" sid="34" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">投资收益</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][35]" sid="35" value="0"></span>
+											</li>
+										</div>
+										<div>
+											<li>
+												<span class="ys_type">其他收入</span>
+												<span class="ys_lastb">￥0</span>
+												<span class="ys_lastm">￥0</span>
+												<span class="ys_thism ">￥0</span>
+												<span class="ys_nextm"><input type="text" class="ys_text son_budget" name="money[in][36]" sid="36" value="0"></span>
+											</li>
+										</div>
+									</ul>
+									<input type="hidden" name="ys_total" lastb="0.00" lastm="0.00" thism="0.00">
+								</li>
+							</ul>
+						</div>
+						<div class="jz_btn">
+							<input type="button" value="保存" class="add_btn" hidefocus="ture" name="update">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sideright">
+				<div class="box clearfix" style="background:#e8e8e8">
+					<p class="p_f">近三个月预算与实际消费对比</p>
+					<div class="myactualxfmain clearfix">
+						<div class="loading"><img border="0" src="images/loading_c.gif"></img>
+						</div>
+					</div>
+
+				</div>
+				<div class="zichan_box budget_box clearfix" style='display:none'>
+					<div class="title02">
+						<h3>我的账户</h3></div>
+					<div class="my_list">
+						<div class="my_tit"><span class="fr gray">操作</span><span class="fr">金额</span>名称</div>
+						<ul>
+							<li><span class="fr gray"><a href="/user/daily/detail/1367752">对账</a></span><span class="fr">0.00</span> 我的钱包</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery.datepicker.js"></script>
+		<script type="text/javascript" src="js/ajz_common.js?1460973905"></script>
+		<div style="display:none">
+			<script language="javascript">
+				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb7c500c007e01a013524dc65b52aa8b9' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+		</div>
+		<div class="main_ft"></div>
+		<div class="footer">
+			<p><a href="/index/about" target="_blank">关于爱记账</a> |
+				<a href="/index/product" target="_blank">产品介绍</a> |
+				<a href="/index/help" target="_blank">帮助中心</a> |
+				<a href="/index/thanks" target="_blank">感谢有你</a> |
+				<a href="/index/about/link" target="_blank">友情链接</a>
+			</p>
+			<p>Copyright 2010-2016 www.ajzhan.com. All Rights Reserved</p>
+			<p>粤ICP备05040000号</p>
+			<div class="f_loading" style="display:none" id="all_load"><img border="0" src="images/loading_c.gif"></div>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				//修改日期
+				$(".datepicker").datepicker({
+					startdate: '1900-01-01',
+					enddate: '2016-04-18'
+				});
+			});
+		</script>
+		<script type="text/javascript" src="js/fusioncharts.js"></script>
+		<script src="js/jquery.artDialog.js?skin=twitter" type="text/javascript"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/ajz_budget.js"></script>
+	</body>
+
+</html>
