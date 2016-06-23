@@ -19,11 +19,24 @@ def cost_configuration():
     conn.close()
     rows = cur.fetchall()
     return rows
+
+def cost_relationship():
+    conn = MySQLdb.connect(app.config.get('DB_HOST'), app.config.get('DB_USER'), app.config.get('DB_PASSWORD'),
+                           app.config.get('DB_NAME'), charset=app.config.get('DB_CHARSET'))
+    cur = conn.cursor()
+    sql = "SELECT * FROM cost_relationship"
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+    rows = cur.fetchall()
+    return rows
+
 def add_sql(cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks):
     conn = MySQLdb.connect(app.config.get('DB_HOST'), app.config.get('DB_USER'), app.config.get('DB_PASSWORD'),
                            app.config.get('DB_NAME'), charset=app.config.get('DB_CHARSET'))
     cur = conn.cursor()
-    insert_sql = "INSERT INTO cost_relationship (cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks) VALUES ('%s','%s','%s','%s','%s')" % (cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks)
+    insert_sql = "INSERT INTO cost_relationship (cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks) VALUES " \
+                 "('%s','%s','%s','%s','%s','%s')" % (cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks)
     cur.execute(insert_sql)
     conn.commit()
     conn.close()
@@ -45,7 +58,15 @@ def get_time():
 
 @app.route('/tally',methods=['GET','POST'])
 def tally():
-    return render_template('tally.html',data=cost_configuration(), params=get_time())
+    # render_template('tally.html',data=cost_configuration(), params=get_time())
+    # cost_configuration_id = request.form['']
+    # cost_name = str(1223)
+    # cost_type = int(23)
+    # cost_time = str(1480525261)
+    # cost_money = int(1233)
+    # remarks = str(1241432)
+    # add_sql(cost_configuration_id,cost_name,cost_type,cost_time,cost_money,remarks)
+    return render_template('tally.html',data=cost_configuration(),params=get_time(),data1=cost_relationship())
 
 
 if __name__ == '__main__':

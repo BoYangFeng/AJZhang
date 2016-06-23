@@ -1,220 +1,211 @@
-﻿
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>爱记账-收支记账</title>
-        <link rel="stylesheet" type="text/css" href="static/css/jquery.datepicker.css"/>
-        <link href="static/images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
-        <link href="static/css/ajz.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="static/css/tally_c.css"/>
-        <link rel="stylesheet" type="text/css" href="static/css/calc.css"/>
-        <link rel="stylesheet" type="text/css" href="static/css/lightbox.css"/>
-        <script type="text/javascript" src="static/js/jquery.js"></script>
-        <script type="text/javascript" src="static/js/config.js"></script>
-        <script type="text/javascript" src="static/js/base.js"></script>
-        <script type="text/javascript" src="static/js/common.js?20121107"></script>
-<!--         <script type="text/javascript">
-            Ajzhan = $.extend(Ajzhan,{
-                SITENAME: "爱记账",
-                SITEURL: "http://www.ajzhan.com",
-                RESOURCEURL: "/res",
-                BASEURL:"/",
-                SERVICEURL: "ajax",
-                NOTEFREQUENCY:10000
-            });
-            Ajzhan.namespace("Ajzhan.SNS.user");
-            Ajzhan.common.user.info = {
-                user_id:359721,
-                username:'s5714990650906',
-                nickname:'s5714990650906'
-            };     
-        </script> -->
-        <style>
-            .list_div ul.chover,.simple_left div.seleced ul{ background-color: #FFF4D9}
-            .list_div ul span.lt-down{ display: none;}
-            .list_div ul.chover span.lt-down, .simple_left div.seleced ul span.lt-down{ display: block;}
-            .simple_left .list_gray ul {
-                background: none repeat scroll 0 0 #F7F7F7;
-            }
-            .preview{cursor: url("images/bigimg.cur"), auto;}
-        </style>
-    </head>
-    <body id="warp">
-		<div style="display:none;">
-						<iframe src="login.html"></iframe>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>爱记账-收支记账</title>
+<link rel="stylesheet" type="text/css" href="static/css/jquery.datepicker.css"/>
+<link href="static/images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+<link href="static/css/ajz.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="static/css/tally_c.css"/>
+<link rel="stylesheet" type="text/css" href="static/css/calc.css"/>
+<link rel="stylesheet" type="text/css" href="static/css/lightbox.css"/>
+<script type="text/javascript" src="static/js/jquery.js"></script>
+<script type="text/javascript" src="static/js/config.js"></script>
+<script type="text/javascript" src="static/js/base.js"></script>
+<script type="text/javascript" src="static/js/common.js?20121107"></script>
+<style>
+.list_div ul.chover, .simple_left div.seleced ul {
+	background-color: #FFF4D9
+}
+.list_div ul span.lt-down {
+	display: none;
+}
+.list_div ul.chover span.lt-down, .simple_left div.seleced ul span.lt-down {
+	display: block;
+}
+.simple_left .list_gray ul {
+	background: none repeat scroll 0 0 #F7F7F7;
+}
+.preview {
+	cursor: url("images/bigimg.cur"), auto;
+}
+</style>
+</head>
+`
+<body id="warp">
+<div style="display:none;">
+	<iframe src="login.html"></iframe>
+</div>
+<div class="warp">
+	<div class="hd">
+		<div class="header clearfix">
+			<div class="top">
+				<h1 class="logo"><a href="/user/index" hidefocus="ture"></a></h1>
+				<ul class="nav">
+					<li class="cur"><a href="tally.html" hidefocus="ture">首页</a></li>
+					<li ><a href="daily.html" hidefocus="ture">报表</a></li>
+					<li ><a href="budget.html" hidefocus="ture">预算</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="main clearfix">
+		<div class="simple_left" style="position: relative">
+			<div class="simple_tit">
+				<ul class="simple_ul">
+					{% for count in range(0,6,1) %}
+                        {% if count==5 %}
+                            <li class="cur" date={{params[count].date}} year={{params[count].year}} month={{params[count].month}} m="" day={{params[count].day}} datetime={{params[count].datetime}}>
+                                <p class="date">{{params[count].day}}</p>
+                                <p class="number" ><span class="ico"></span><span>0</span>元</p>
+					        </li>
+                        {% else %}
+                            <li  date={{params[count].date}} year={{params[count].year}} month={{params[count].month}} m="" day={{params[count].day}} datetime={{params[count].datetime}}>
+                                <p class="date">{{params[count].day}}</p>
+                                <p class="number" ><span class="ico"></span><span>0</span>元</p>
+					        </li>
+                        {% endif %}
+					{% endfor %}
+				</ul>
+				<div class="simple_date">
+					<p class="d1">2016</p>
+					<p class="d2"><i></i><em>月</em></p>
 				</div>
-        <div class="warp">
-                <div class="hd">
-        <div class="header clearfix">
-
-            <div class="top">
-                <h1 class="logo"><a href="/user/index" hidefocus="ture"></a></h1>
-                <ul class="nav">
-                    <li class="cur"><a href="tally.html" hidefocus="ture">首页</a></li>
-                    <li ><a href="daily.html" hidefocus="ture">报表</a></li>
-                    <li ><a href="budget.html" hidefocus="ture">预算</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-            <div class="main clearfix">
-                <div class="simple_left" style="position: relative">
-                    <div class="simple_tit">
-                        <ul class="simple_ul">                       
-                            {% for count in range(0,6,1) %}                          
-                                <li class="other" date={{params[count].date}} year={params[count].year}} month={{params[count].month}} m="" day={{params[count].day}} datetime={{params[count].datetime}}>
-                                    <p class="date">{{params[count].day}}</p>
-                                    <p class="number" ><span class="ico"></span><span>0</span>元</p>
-                                </li>
-                            {% endfor %}                                              
-                        </ul>
-                        <div class="simple_date">
-                            <p class="d1">2016</p>
-                            <p class="d2"><i></i><em>月</em></p>
-                        </div>
-                    </div>
-                    <div class="simple_ct">
-                        <div class="simple_money">
-                            <input type="hidden" id="tally_type" value="out"/>
-                            <input type="hidden" id="tally_cate" value=""/>
-                            <input type="hidden" value="2016-04-18" id="tally_time" name="tally_time"/>
-                            <input type="hidden" id="tally_pic" value=""/>
-                            <input type="hidden" id="account_id" value="1367752"/>
-                            <input autocomplete="off" init-tip="0" id="money_text" type="text" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" name="money" value="0" class="simple_input"/>
-                            <span class="counter" onclick="CalcShow()"></span>
-                            <div title="计算器" style="display: none;right: 3px" id="calc">
-                                <form name="Keypad" id="Keypad">
-                                    <div class="led">
-                                        <input width="100%" name="ReadOut" value="0" id="ReadOut" class="ledput"/>
-                                        <input type="button" class="ledbtn" id="HideCalc" onclick="resultShow($('#money_text'))" name="btnClear"/>
-                                    </div>
-                                    <div class="js_bg clearfix">
-                                        <div class="num js_num" style="float: left; width: 180px;">
-                                            <input type="button" name="btnOne" value="1" onclick="NumPressed(1)"/>
-                                            <input type="button" name="btnTwo" value="2" onclick="NumPressed(2)"/>
-                                            <input type="button" name="btnThree" value="3" onclick="NumPressed(3)"/>
-                                            <input type="button" name="btnFour" value="4" onclick="NumPressed(4)"/>
-                                            <input type="button" name="btnFive" value="5" onclick="NumPressed(5)"/>
-                                            <input type="button" name="btnSix" value="6" onclick="NumPressed(6)"/>
-                                            <input type="button" name="btnSeven" value="7" onclick="NumPressed(7)"/>
-                                            <input type="button" name="btnEight" value="8" onclick="NumPressed(8)"/>
-                                            <input type="button" name="btnNine" value="9" onclick="NumPressed(9)"/>
-                                            <input type="button" class="js_num_put" name="btnClear" value="C" onclick="Clear()"/>
-                                            <input type="button" name="btnZero" value="0" onclick="NumPressed(0)"/>
-                                            <input type="button" onclick="Neg()" value="+/-" name="btnNeg"></input>
-                                            <input type="button" name="btnDecimal" value="." onclick="Decimal()"/>
-                                        </div>
-                                        <div class="op js_op">
-                                            <input type="button" name="btnPlus" value="+" onclick="Operation('+')"/>
-                                            <input type="button" name="btnMinus" value="-" onclick="Operation('-')"/>
-                                            <input type="button" class="js_num_tui" name="btnMinus" value="" onclick="ClearNum()"/>
-                                            <input type="button" name="btnEquals" value="=" onclick="Operation('=')"/>
-                                            <input type="button" onclick="Percent()" value="%" name="btnPercent"></input>
+			</div>
+			<div class="simple_ct">
+				<div class="simple_money">
+					<input type="hidden" id="cost_type" value="1"/>
+					<input type="hidden" id="cost_configuration_id" value=""/>
+					<input type="hidden" value="" id="cost_time" name="cost_time"/>
+					<input autocomplete="off" init-tip="0" id="cost_money" type="text" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" name="money" value="0" class="simple_input"/>
+					<span class="counter" onclick="CalcShow()"></span>
+					<div title="计算器" style="right: 3px;" id="calc">
+						<form name="Keypad" id="Keypad">
+							<div class="led">
+								<input width="100%" name="ReadOut" value="0" id="ReadOut" class="ledput">
+								<input type="button" class="ledbtn" id="HideCalc" onclick="resultShow($('#cost_money'))" name="btnClear">
+							</div>
+							<div class="js_bg clearfix">
+								<div class="num js_num" style="float: left; width: 180px;">
+									<input type="button" name="btnOne" value="1" onclick="NumPressed(1)">
+									<input type="button" name="btnTwo" value="2" onclick="NumPressed(2)">
+									<input type="button" name="btnThree" value="3" onclick="NumPressed(3)">
+									<input type="button" name="btnFour" value="4" onclick="NumPressed(4)">
+									<input type="button" name="btnFive" value="5" onclick="NumPressed(5)">
+									<input type="button" name="btnSix" value="6" onclick="NumPressed(6)">
+									<input type="button" name="btnSeven" value="7" onclick="NumPressed(7)">
+									<input type="button" name="btnEight" value="8" onclick="NumPressed(8)">
+									<input type="button" name="btnNine" value="9" onclick="NumPressed(9)">
+									<input type="button" class="js_num_put" name="btnClear" value="C" onclick="Clear()">
+									<input type="button" name="btnZero" value="0" onclick="NumPressed(0)">
+									<!--<input type="button" onclick="Neg()" value="+/-" name="btnNeg"></input>-->
+									<input type="button" name="btnDecimal" value="." onclick="Decimal()">
+								</div>
+								<div class="op js_op">
+									<input type="button" name="btnPlus" value="+" onclick="Operation('+')">
+									<input type="button" name="btnMinus" value="-" onclick="Operation('-')">
+									<input type="button" class="js_num_tui" name="btnMinus" value="" onclick="ClearNum()">
+									<input type="button" name="btnEquals" value="=" onclick="Operation('=')">
+									<!--<input type="button" onclick="Percent()" value="%" name="btnPercent"></input>
                                             <input type="button" onclick="Operation('*')" value="*" name="btnMultiply"></input>
                                             <input type="button" onclick="Operation('/')" value="/" name="btnDivide"></input>
-                                            <input type="button" onclick="ClearEntry()" value="CE" name="btnClearEntry"></input>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div style=""></div>
-                            </div>
-                        </div>
-                        <div class="simple_list clearfix">
-                            <ul>
-                                {% for item in data %}
-                                    <li><a href="#nogo" cid="{{item[0]}}" class="s1">{{item[1]}}</a></li>
-                                {% endfor %}
-                                <li class="in_type"><a href="#nogo" cid="36" class="s8"><em>+</em>收入</a></li>
-                            </ul>
-                        </div>
-                        <div class="simple_publish clearfix">
-                            <div  class="simple_pic"><img id="upload_avatar" src="static/images/spacer.gif"  width="70" height="70"/></div>
-                            <div class="simple_text">
-                                <textarea name="title" id="tally_title" init-tip="备注，限20个汉字以内（可不填）" cols="" rows="" class="s_text">备注，限20个汉字以内（可不填）</textarea>
-                            </div>
-                            <div class="simple_btn">
-                                <input name="tally_submit" onclick="Ajzhan.common.user.simple_tally.add();" type="button" class="s_btn" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="simple_bt"></div>
-                    <div id="tall_btn" class="bigbutton clearfix" style="display: none">
-                        <div class="simple_btn">
-                            <input type="button" class="s_btn"/>
-                        </div>
-                    </div>
-                    <div class="title simple_title">
-                        <ul class="simple_detail_tt">
-                            <li>来源</li>
-                            <li class="l2">类型</li>
-                            <li class="l3">类别</li>
-                            <li class="l4"><a href="javascript:void(0);" title="金额降序" onclick="Ajzhan.common.user.simple_tally.tally_list_order('money', 'desc',this)">金额<span class=""></span></a></li>
-                            <li class="l5" style="width:230px">备注 
-                                <span style="display: none;float: right;padding: 0;margin: 0;width: 160px;height: auto;vertical-align: middle" class="fr loading">
-                                    <img width="23" style="vertical-align: middle" src="static/images/loading.gif"/> 正在加载中...
-                                </span></li>
-                        </ul>
-                    </div>
-                    <div id="right-list">
-						<img src="static/images/zanwu.gif">
-                    </div>
-                </div>
-                <div class="simple_right">
-                    <div class="day30">
-                        <p class="day30_tit">30天内消费比例<em>（显示最多的5类）</em></p>
-                        <div class="scale_chart"></div>
-                    </div>
-                    <div class="zichan_box clearfix">
-                        <p class="day30_tit">最近日均消费状况</p>
-                        <div class="chart tally_chart"> 
-
-                        </div>
-                    </div>
-                    <!--<div class="font_list clearfix">-->
-                        <!--<ul>       
-                            <li><a href="/index/product" target="_blank"><span class="l1"></span>产品介绍</a></li>
-                            <li><a href="/index/thanks" target="_blank"><span class="l2"></span>感谢有您</a></li>
-                            <li><a href="/index/help" target="_blank"><span class="l3"></span>帮助中心</a></li>
-                            <li><a href="/index/wallpaper" target="_blank"><span class="l4"></span>爱记账壁纸</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                    <!--<iframe width="230" scrolling="auto" height="80" frameborder="0" src="http://follow.v.t.qq.com/index.php?c=follow&amp;a=quick&amp;name=aijizhang&amp;style=1&amp;f=1" marginwidth="0" marginheight="0" allowtransparency="true" style="padding:10px 0 0 20px"></iframe>-->
-                </div>
-            </div>
-        </div>
-        <div style="display:none" id="uploadimgdiv">
-            <div class="fast-top" style="padding:20px"><input type="hidden" value="" id="img_upoad_id"/>
-                <input style=" padding: 5px;margin-top: 10px;margin-bottom: 10px" size="30"  type="file" name="file1" id="imagefile"/></div>
-            <p style=" margin-top: 10px;text-align:center"><input style=" padding: 5px; color:#333;" name="uploadfile" id="uploadfile" onclick="Ajzhan.common.user.simple_tally.ajaxFileUpload();" type="button" value="上传图片"/><span id="upload_loading" style="margin-left: 10px;display:none;">正在上传</span></p>
-        </div>
-        <script src="static/js/jquery.artDialog.js?skin=twitter" type="text/javascript"></script>
-        <script type="text/javascript" src="static/js/fusioncharts.js"></script>
-        <script language="javascript" type="text/javascript" src="static/js/WdatePicker.js"></script>
-        <script type="text/javascript" src="static/js/calc.js"></script>
-        <script type="text/javascript" src="static/js/lightbox.js"></script>
-        <script type="text/javascript" src="static/js/ajaxupload.3.6.js"></script>
-        <script type="text/javascript" src="static/js/simple_tally.js"></script>
-        <script type="text/javascript" >
+                                            <input type="button" onclick="ClearEntry()" value="CE" name="btnClearEntry"></input>--> 
+								</div>
+							</div>
+						</form>
+						<div style=""></div>
+					</div>
+				</div>
+				<div class="simple_list clearfix">
+					<ul>
+						{% for item in data %}
+						<li><a href="#nogo" cid="{{item[0]}}" class="s1">{{item[1]}}</a></li>
+						{% endfor %}
+						<li class="in_type"><a href="#nogo" cid="36" class="s8"><em>+</em>收入</a></li>
+					</ul>
+				</div>
+				<div class="simple_publish clearfix">
+					<div  class="simple_pic"><img id="upload_avatar" src="static/images/spacer.gif"  width="70" height="70"/></div>
+					<div class="simple_text">
+						<textarea name="title" id="tally_title" init-tip="备注，限20个汉字以内（可不填）" cols="" rows="" class="s_text">备注，限20个汉字以内（可不填）</textarea>
+					</div>
+					<div class="simple_btn">
+						<input name="tally_submit" onclick="Ajzhan.common.user.simple_tally.add();" type="button" class="s_btn" />
+					</div>
+				</div>
+			</div>
+			<div class="simple_bt"></div>
+			<div id="tall_btn" class="bigbutton clearfix" style="display: none">
+				<div class="simple_btn">
+					<input type="button" class="s_btn"/>
+				</div>
+			</div>
+			<div class="title simple_title">
+				<ul class="simple_detail_tt">
+					<li>来源</li>
+					<li class="l2">类型</li>
+					<li class="l3">类别</li>
+					<li class="l4"><a href="javascript:void(0);" title="金额降序" onclick="Ajzhan.common.user.simple_tally.tally_list_order('money', 'desc',this)">金额<span class=""></span></a></li>
+					<li class="l5" style="width:230px">备注 <span style="display: none;float: right;padding: 0;margin: 0;width: 160px;height: auto;vertical-align: middle" class="fr loading"> 
+						<!-- <img width="23" style="vertical-align: middle" src="static/images/loading.gif"/> 正在加载中... --> 
+						</span> </li>
+				</ul>
+			</div>
+			<div id="right-list">
+				<div sid="7391758" close="is" class="list_div clearfix list_gray">
+					<ul class="clearfix">
+						{% for item in data1 %}
+						<li class="l1">{{item[0]}}</li>
+						<li class="l2"> <font color="#61C37D">支出</font> </li>
+						<li class="l3">{{item[2]}}</li>
+						<li class="l4"><span class="green">{{item[4]}}</span></li>
+						<li title="{{item[7]}}" class="l5 gray">{{item[7]}}<span class="lt-down"></span></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="list-box list-box-normal clearfix" is_open="0" sid="7391758" style="display: none;">
+					<div class="loading" style="padding:18px 0"><img border="0" src="/images/common/loading_c.gif"></div>
+				</div>
+			</div>
+		</div>
+		<div class="simple_right">
+			<div class="day30">
+				<p class="day30_tit">30天内消费比例<em>（显示最多的5类）</em></p>
+				<div class="scale_chart"></div>
+			</div>
+			<div class="zichan_box clearfix">
+				<p class="day30_tit">最近日均消费状况</p>
+				<div class="chart tally_chart"> </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display:none" id="uploadimgdiv">
+	<div class="fast-top" style="padding:20px">
+		<input type="hidden" value="" id="img_upoad_id"/>
+		<input style=" padding: 5px;margin-top: 10px;margin-bottom: 10px" size="30"  type="file" name="file1" id="imagefile"/>
+	</div>
+	<p style=" margin-top: 10px;text-align:center">
+		<input style=" padding: 5px; color:#333;" name="uploadfile" id="uploadfile" onclick="Ajzhan.common.user.simple_tally.ajaxFileUpload();" type="button" value="上传图片"/>
+		<span id="upload_loading" style="margin-left: 10px;display:none;">正在上传</span></p>
+</div>
+<script src="static/js/jquery.artDialog.js?skin=twitter" type="text/javascript"></script> 
+<script type="text/javascript" src="static/js/fusioncharts.js"></script> 
+<script language="javascript" type="text/javascript" src="static/js/WdatePicker.js"></script> 
+<script type="text/javascript" src="static/js/calc.js"></script> 
+<script type="text/javascript" src="static/js/lightbox.js"></script> 
+<script type="text/javascript" src="static/js/ajaxupload.3.6.js"></script> 
+<script type="text/javascript" src="static/js/simple_tally.js"></script> 
+<script type="text/javascript" >
             Ajzhan.common.user.simple_tally.cur_date = "2016-04-18";
             Ajzhan.common.user.simple_tally.selected_date = "2016-04-18";
         </script>
-        <div class="main_ft"></div>
-<!--<div class="footer">
-  	<p><a href="/index/about" target="_blank">关于爱记账</a> |
-            <a href="/index/product" target="_blank">产品介绍</a> |
-            <a href="/index/help" target="_blank">帮助中心</a> |
-            <a href="/index/thanks" target="_blank">感谢有你</a> |
-            <a href="/index/about/link" target="_blank">友情链接</a>
-        </p>
-  	<p>Copyright 2010-2016 www.ajzhan.com. All Rights Reserved</p>
-  	<p>粤ICP备05040000号</p>
-	<div class="f_loading" style="display:none" id="all_load"><img  border="0" src="images/loading_c.gif"></div>
-</div>-->
-<div style="display:none">
-    <script language="javascript">
-        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb7c500c007e01a013524dc65b52aa8b9' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-</div>    </body>
+<div class="main_ft"></div>
+<div style="display:none"> 
+	<script language="javascript">
+                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb7c500c007e01a013524dc65b52aa8b9' type='text/javascript'%3E%3C/script%3E"));
+            </script> 
+</div>
+</body>
 </html>
