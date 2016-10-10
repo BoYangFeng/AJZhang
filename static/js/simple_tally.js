@@ -417,7 +417,7 @@ Ajzhan.common.user.simple_tally={
         };
         $(".loading").show();
         $.ajax({
-            url:'/user/tally/ajax_add',
+            url:'/tally',
             type:'POST',
             dataType:"html",
             cache:false,

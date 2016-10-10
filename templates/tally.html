@@ -27,11 +27,10 @@
 	background: none repeat scroll 0 0 #F7F7F7;
 }
 .preview {
-	cursor: url("images/bigimg.cur"), auto;
+	cursor: url("static/images/bigimg.cur"), auto;
 }
 </style>
 </head>
-`
 <body id="warp">
 <div style="display:none;">
 	<iframe src="login.html"></iframe>
@@ -55,13 +54,13 @@
 				<ul class="simple_ul">
 					{% for count in range(0,6,1) %}
                         {% if count==5 %}
-                            <li class="cur" date={{params[count].date}} year={{params[count].year}} month={{params[count].month}} m="" day={{params[count].day}} datetime={{params[count].datetime}}>
-                                <p class="date">{{params[count].day}}</p>
+                            <li class="cur" date={{timeList[count].date}} year={{timeList[count].year}} month={{timeList[count].month}} m="" day={{timeList[count].day}} datetime={{timeList[count].datetime}}>
+                                <p class="date">{{timeList[count].day}}</p>
                                 <p class="number" ><span class="ico"></span><span>0</span>元</p>
 					        </li>
                         {% else %}
-                            <li  date={{params[count].date}} year={{params[count].year}} month={{params[count].month}} m="" day={{params[count].day}} datetime={{params[count].datetime}}>
-                                <p class="date">{{params[count].day}}</p>
+                            <li  date={{timeList[count].date}} year={{timeList[count].year}} month={{timeList[count].month}} m="" day={{timeList[count].day}} datetime={{timeList[count].datetime}}>
+                                <p class="date">{{timeList[count].day}}</p>
                                 <p class="number" ><span class="ico"></span><span>0</span>元</p>
 					        </li>
                         {% endif %}
@@ -74,17 +73,19 @@
 			</div>
 			<div class="simple_ct">
 				<div class="simple_money">
-					<input type="hidden" id="cost_type" value="1"/>
-					<input type="hidden" id="cost_configuration_id" value=""/>
-					<input type="hidden" value="" id="cost_time" name="cost_time"/>
-					<input autocomplete="off" init-tip="0" id="cost_money" type="text" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" name="money" value="0" class="simple_input"/>
-					<span class="counter" onclick="CalcShow()"></span>
-					<div title="计算器" style="right: 3px;" id="calc">
-						<form name="Keypad" id="Keypad">
-							<div class="led">
-								<input width="100%" name="ReadOut" value="0" id="ReadOut" class="ledput">
-								<input type="button" class="ledbtn" id="HideCalc" onclick="resultShow($('#cost_money'))" name="btnClear">
-							</div>
+					<input type="hidden" id="tally_type" value=""/>
+                    <input type="hidden" id="tally_cate" value=""/>
+                    <input type="hidden" id="tally_time" value="" name="tally_time"/>
+                    <input type="hidden" id="tally_pic" value=""/>
+                    <input type="hidden" id="account_id" value=""/>
+                    <input autocomplete="off" init-tip="0" id="money_text" type="text" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" name="money" value="0" class="simple_input"/>
+                    <span class="counter" onclick="CalcShow()"></span>
+                    <div title="计算器" style="display: none;right: 3px" id="calc">
+	                    <form name="Keypad" id="Keypad">
+	                        <div class="led">
+	                            <input width="100%" name="ReadOut" value="0" id="ReadOut" class="ledput"/>
+	                            <input type="button" class="ledbtn" id="HideCalc" onclick="resultShow($('#money_text'))" name="btnClear"/>
+	                        </div>
 							<div class="js_bg clearfix">
 								<div class="num js_num" style="float: left; width: 180px;">
 									<input type="button" name="btnOne" value="1" onclick="NumPressed(1)">
@@ -118,7 +119,7 @@
 				</div>
 				<div class="simple_list clearfix">
 					<ul>
-						{% for item in data %}
+						{% for item in exacct %}
 						<li><a href="#nogo" cid="{{item[0]}}" class="s1">{{item[1]}}</a></li>
 						{% endfor %}
 						<li class="in_type"><a href="#nogo" cid="36" class="s8"><em>+</em>收入</a></li>
@@ -154,7 +155,7 @@
 			<div id="right-list">
 				<div sid="7391758" close="is" class="list_div clearfix list_gray">
 					<ul class="clearfix">
-						{% for item in data1 %}
+						{% for item in bill %}
 						<li class="l1">{{item[0]}}</li>
 						<li class="l2"> <font color="#61C37D">支出</font> </li>
 						<li class="l3">{{item[2]}}</li>
