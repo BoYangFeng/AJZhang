@@ -18,15 +18,8 @@ def tally():
     timeList = getTime()
     exacctList = tallyData.getExacct()
     billList = tallyData.getBill()
-    data = request.form.getlist('data')
+    data = request.form
     print data
-    # print data['tallytime']
-    # print data['tally_img']
-    # print data['account_id']
-    # print data['title']
-    # print data['money']
-    # print data['category_id']
-    # print data['type']
     return render_template('tally.html',exacct=exacctList,timeList=timeList,bill=billList)
 
 
