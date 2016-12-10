@@ -1,59 +1,39 @@
 # -*- coding:utf8 -*-
 
-import MySQLdb,time
-from config import *
+import sqlalchemy,time
+from sqlalchemy import create_engine,MetaData,Table
+from sqlalchemy.sql import select
+from config import ProductionConfig
 
+# 链接数据库
+# engine = create_engine('mysql+mysqldb://scott:tiger@localhost/foo')
+engine = create_engine(ProductionConfig.DATABASE_URI,echo=False)
+meta = MetaData()
 
-class ConnectDB:
-    def __init__(self):
-        try:
-            self.conn = MySQLdb.connect(host = AjizhangDB.host,user = AjizhangDB.user,passwd = AjizhangDB.passwd,
-                                        db = AjizhangDB.db,charset = AjizhangDB.charset)
-            self.cur = self.conn.cursor()
-        except MySQLdb.Error as e:
-            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+# 反射表cost_configuration
+# messages = Table('messages', meta, autoload=True, autoload_with=engine)
+cost_configuration = Table('cost_configuration',meta,autoload=True,autoload_with=engine)
+cost_relationship = Table('cost_relationship',meta,autoload=True,autoload_with=engine)
+conn = engine.connect()
 
-    def colseDB(self):
-        self.cur.close()
-        self.conn.close()
+# 获取费用科目配置
+exacct_sql = select([cost_configuration])
+exacct = conn.execute(exacct_sql)
 
+# 获取费用明细数据
+bill_sql = select([cost_relationship])
+bill = conn.execute(bill_sql)
 
-class TallySql(ConnectDB):
-    def getExacct(self):
-        try:
-            sql = "SELECT * FROM cost_configuration"
-            self.cur.execute(sql)
-            exacct = self.cur.fetchall()
-            return exacct
-        except MySQLdb.Error as e:
-            print "Mysql Error %d: %s" % (e.args[0],e.args[1])
-
-    def getBill(self):
-        try:
-            sql = "SELECT * FROM cost_relationship"
-            self.cur.execute(sql)
-            bill = self.cur.fetchall()
-            return bill
-        except MySQLdb.Error as e:
-            print "Mysql Error %d: %s" % (e.args[0],e.args[1])
-
-
-def getTime():
-    timelist = []
-    count = 5
-    while (count > -1):
-        one_day = 86400
-        datetime = int(time.time()) - one_day * count
-        struct_time = time.gmtime(datetime)
-        date = time.strftime("%Y-%m-%d",struct_time)
-        year = time.strftime("%Y",struct_time)
-        month = time.strftime("%m",struct_time)
-        day = time.strftime("%d",struct_time)
-        count -= 1
-        timelist.append({'datetime':datetime,'date':date,'year':year,'month':month,'day':day})
-    return timelist
-
-
-
-# a = TallySql()
-# print a.getExacct()
+# 获取日历
+timelist = []
+count = 5
+while (count > -1):
+    one_day = 86400
+    datetime = int(time.time()) - one_day * count
+    struct_time = time.gmtime(datetime)
+    date = time.strftime("%Y-%m-%d",struct_time)
+    year = time.strftime("%Y",struct_time)
+    month = time.strftime("%m",struct_time)
+    day = time.strftime("%d",struct_time)
+    count -= 1
+    timelist.append({'datetime':datetime,'date':date,'year':year,'month':month,'day':day})
