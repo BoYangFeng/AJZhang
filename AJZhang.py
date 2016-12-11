@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from flask import Flask, render_template,redirect,url_for,jsonify,json
-import db
+from flask import Flask,render_template,redirect,url_for,jsonify,json
+from db import *
 from flask import request
 
 app = Flask(__name__, instance_relative_config=True)
